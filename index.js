@@ -2,11 +2,12 @@
 const OpenAI = require("openai");
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
 const openai = new OpenAI({
-  apiKey: "sk-proj-mDVtsfr7NYvxnHiMlm6RT3BlbkFJdFZvx3FAh7zA1wvzdf14", // This is the default and can be omitted
+  apiKey: process.env.OPENAI_KEY, // This is the default and can be omitted
 });
 
 // POST 요청 받을 수 있게 만듦
