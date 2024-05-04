@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <div class="wrap">
@@ -27,6 +28,7 @@
         id="inputChat"
         type="text"
         class="input_textbox"
+        onkeyup="chatting.onKeyUp(event, this)"
         placeholder="당신의 소중한 사람에게 어떤 요리를 해주고 싶으신가요? 재료를 입력해주세요."
       />
       <button id="btnChat" class="button" onclick="chatting.sendMessage();">
@@ -43,8 +45,11 @@
           // 사용자 입력 칸 메시지 표시
           this.displayMessage("user", msgContent);
           inputMsg.value = "";
+          document.querySelector("#btnChat").style.display = "none";
 
           try {
+            this.displayLoadding("on");
+
             const response = await fetch(
               "http://localhost:3000/menu/recommend",
               {
@@ -57,6 +62,7 @@
             );
 
             if (!response.ok) {
+              this.displayLoadding("off");
               responseMsg =
                 "무엇을 추천해야할지 생각이 많아지네요..😂<br />다시 한번 물어봐주시겠어요?";
               throw new Error(`Request failed with status ${response.status}`);
@@ -73,7 +79,38 @@
             );
           }
 
+          this.displayLoadding("off");
           this.displayMessage("chef", responseMsg);
+        }
+
+        // 결과 받기 전 로딩 메시지 표시
+        displayLoadding(plug) {
+          if (plug === "on") {
+            const dvMsg = document.createElement("div");
+            dvMsg.className = "chat ch1 loadding";
+
+            const dvIcon = document.createElement("div");
+            dvIcon.className = "icon";
+
+            const icon = document.createElement("i");
+            icon.textContent = "머랭";
+
+            dvIcon.appendChild(icon);
+            dvMsg.appendChild(dvIcon);
+
+            const dvTextMsg = document.createElement("div");
+            dvTextMsg.className = "textbox ellipsis-loading";
+
+            dvMsg.appendChild(dvTextMsg);
+
+            document.querySelector(".wrap").appendChild(dvMsg);
+          } else {
+            const loadding = document.querySelector(".loadding");
+
+            if (loadding) {
+              document.querySelector(".wrap").removeChild(loadding);
+            }
+          }
         }
 
         // 화면에 메시지 표시
@@ -94,10 +131,40 @@
 
           const dvTextMsg = document.createElement("div");
           dvTextMsg.className = "textbox";
-          dvTextMsg.innerHTML = message;
+          dvTextMsg.innerHTML = marked.parse(message);
 
           dvMsg.appendChild(dvTextMsg);
           document.querySelector(".wrap").appendChild(dvMsg);
+        }
+
+        onKeyUp(e, element) {
+          const val = element.value;
+
+          if (!val) {
+            document.querySelector("#btnChat").style.display = "none";
+          } else {
+            if (e.keyCode === 13) {
+              this.sendMessage();
+            }
+          }
+
+          // Regular expression to match Korean characters
+          var koreanRegex = /[가-힣]/;
+
+          // Regular expression to match English characters
+          var englishRegex = /^[a-zA-Z]$/;
+
+          // Regular expression to match numeric characters
+          var numericRegex = /^\d$/;
+
+          // Determine the category of the pressed key
+          if (
+            koreanRegex.test(val) ||
+            englishRegex.test(val) ||
+            numericRegex.test(val)
+          ) {
+            document.querySelector("#btnChat").style.display = "block";
+          }
         }
       }
 

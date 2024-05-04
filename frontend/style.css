@@ -1,3 +1,4 @@
+/* Chatting CSS */
 * {
   padding: 0;
   margin: 0;
@@ -59,6 +60,7 @@ a {
 .wrap .ch1 .textbox {
   margin-left: 20px;
   background-color: #ffff;
+  padding: 15px 30px;
 }
 
 .wrap .ch1 .textbox::before {
@@ -74,6 +76,7 @@ a {
 .wrap .ch2 .textbox {
   margin-right: 20px;
   background-color: #f9eb54;
+  padding: 15px 30px;
 }
 
 .wrap .ch2 .textbox::before {
@@ -82,6 +85,7 @@ a {
   color: #f9eb54;
 }
 
+/* 입력, 전송버튼 CSS */
 .container {
   display: flex;
   justify-content: space-between;
@@ -99,6 +103,7 @@ a {
 
 .button {
   flex: 1;
+  display: none;
   background-color: #007bff;
   border: none;
   color: white;
@@ -114,4 +119,32 @@ a {
 
 .button:hover {
   background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* 응답 값 로딩 CSS */
+.ellipsis-loading {
+  font-size: 20px;
+  text-align: center;
+  margin: 20% auto; /* Center the loading animation */
+}
+
+.ellipsis-loading::after {
+  content: " .";
+  animation: ellipsis 1.2s infinite;
+}
+
+@keyframes ellipsis {
+  0%,
+  100% {
+    content: ".";
+  }
+  25% {
+    content: ". .";
+  }
+  50% {
+    content: ". . .";
+  }
+  75% {
+    content: ". . . .";
+  }
 }
