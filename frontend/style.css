@@ -1,6 +1,3 @@
-body {
-}
-
 * {
   padding: 0;
   margin: 0;
@@ -15,6 +12,8 @@ a {
   padding: 40px 0 50px;
   margin: 10px 40px;
   background-color: #efefef;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .wrap .chat {
@@ -34,11 +33,10 @@ a {
 
 .wrap .chat .icon i {
   position: absolute;
-  top: 10px;
-  left: 50%;
-  font-size: 2.5rem;
+  top: 15px;
+  left: 18%;
+  font-size: 0.9rem;
   color: #aaa;
-  transform: translateX(-50%);
 }
 
 .wrap .chat .textbox {
@@ -93,8 +91,8 @@ a {
 .input_textbox {
   flex: 9;
   background-color: #f4f4f4;
-  border: 2px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -109,7 +107,7 @@ a {
   text-decoration: none;
   /* display: inline-block; */
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

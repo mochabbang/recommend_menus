@@ -6,36 +6,102 @@
     <title>쉐프머랭의 메뉴 추천</title>
     <link rel="stylesheet" href="/frontend/style.css" />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css"
-  />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css"
+    />
   </head>
   <body>
     <div class="wrap">
       <div class="chat ch1">
-        <div class="icon"><i class="fa-solid fa-user"></i></div>
-        <div class="textbox">안녕하세요. 반갑습니다.</div>
-      </div>
-      <div class="chat ch2">
+        <div class="icon"><i>머랭</i></div>
         <div class="textbox">
-          안녕하세요. 친절한효자손입니다. 그동안 잘 지내셨어요?
+          안녕하세요. 쉐프 머랭입니다
+          <br />
+          오늘 소중한 사람과 즐거운 시간을 보낼 수 있는 메뉴를
+          추천해드리겠습니다.
         </div>
       </div>
-      <div class="chat ch1">
-        <div class="icon"><img class="fa-solid fa-user"></i></div>
-        <div class="textbox">아유~ 너무요너무요! 요즘 어떻게 지내세요?</div>
-      </div>
-      <div class="chat ch2">
-        <div class="textbox">
-          뭐~ 늘 똑같은 하루 하루를 보내는 중이에요. 코로나가 다시 극성이어서
-          모이지도 못하구 있군요 ㅠㅠ 얼른 좀 잠잠해졌으면 좋겠습니다요!
-        </div>
-      </div>  
     </div>
     <div class="container">
-      <input type="text" class="input_textbox" placeholder="텍스트박스">
-      <button class="button"><i class="fa fa-regular fa-paper-plane"></i></button>      
-    </div>    
-    
+      <input
+        id="inputChat"
+        type="text"
+        class="input_textbox"
+        placeholder="당신의 소중한 사람에게 어떤 요리를 해주고 싶으신가요? 재료를 입력해주세요."
+      />
+      <button id="btnChat" class="button" onclick="chatting.sendMessage();">
+        <i class="fa fa-regular fa-paper-plane"></i>
+      </button>
+    </div>
+    <script>
+      class Chatting {
+        async sendMessage() {
+          let responseMsg = "";
+          const inputMsg = document.getElementById("inputChat");
+          const msgContent = inputMsg.value;
+
+          // 사용자 입력 칸 메시지 표시
+          this.displayMessage("user", msgContent);
+          inputMsg.value = "";
+
+          try {
+            const response = await fetch(
+              "http://localhost:3000/menu/recommend",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ inputMsg: msgContent }),
+              }
+            );
+
+            if (!response.ok) {
+              responseMsg =
+                "무엇을 추천해야할지 생각이 많아지네요..😂<br />다시 한번 물어봐주시겠어요?";
+              throw new Error(`Request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            responseMsg = data.assistant;
+          } catch (error) {
+            responseMsg =
+              "무엇을 추천해야할지 생각이 많아지네요..😂<br />다시 한번 물어봐주시겠어요?";
+            console.error(
+              "There was a problem with the fetch operation:",
+              error
+            );
+          }
+
+          this.displayMessage("chef", responseMsg);
+        }
+
+        // 화면에 메시지 표시
+        displayMessage(userType, message) {
+          const className = userType === "user" ? "ch2" : "ch1";
+
+          const dvMsg = document.createElement("div");
+          dvMsg.className = `chat ${className}`;
+
+          if (userType !== "user") {
+            const dvIcon = document.createElement("div");
+            dvIcon.className = "icon";
+            const icon = document.createElement("i");
+            icon.textContent = "머랭";
+            dvIcon.appendChild(icon);
+            dvMsg.appendChild(dvIcon);
+          }
+
+          const dvTextMsg = document.createElement("div");
+          dvTextMsg.className = "textbox";
+          dvTextMsg.innerHTML = message;
+
+          dvMsg.appendChild(dvTextMsg);
+          document.querySelector(".wrap").appendChild(dvMsg);
+        }
+      }
+
+      const chatting = new Chatting();
+    </script>
   </body>
 </html>
