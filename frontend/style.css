@@ -60,7 +60,22 @@ a {
 .wrap .ch1 .textbox {
   margin-left: 20px;
   background-color: #ffff;
-  padding: 15px 30px;
+  padding: 10px 13px;
+}
+
+.wrap .ch1 .textbox > h3 {
+  margin-top: 10px;
+}
+
+.wrap .ch1 .textbox > p {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.wrap .ch1 .textbox ol,
+ul {
+  margin-top: 3px;
+  margin-left: 15px;
 }
 
 .wrap .ch1 .textbox::before {
@@ -76,7 +91,7 @@ a {
 .wrap .ch2 .textbox {
   margin-right: 20px;
   background-color: #f9eb54;
-  padding: 15px 30px;
+  padding: 10px 13px;
 }
 
 .wrap .ch2 .textbox::before {

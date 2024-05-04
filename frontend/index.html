@@ -37,10 +37,16 @@
     </div>
     <script>
       class Chatting {
+        constructor() {
+          this.userMessages = [];
+          this.assistantMessages = [];
+        }
+
         async sendMessage() {
           let responseMsg = "";
           const inputMsg = document.getElementById("inputChat");
           const msgContent = inputMsg.value;
+          this.userMessages.push(msgContent);
 
           // 사용자 입력 칸 메시지 표시
           this.displayMessage("user", msgContent);
@@ -57,7 +63,11 @@
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ inputMsg: msgContent }),
+                body: JSON.stringify({
+                  inputMsg: msgContent,
+                  userMessages: this.userMessages,
+                  assistantMessages: this.assistantMessages,
+                }),
               }
             );
 
@@ -70,6 +80,7 @@
 
             const data = await response.json();
             responseMsg = data.assistant;
+            this.assistantMessages.push(responseMsg);
           } catch (error) {
             responseMsg =
               "무엇을 추천해야할지 생각이 많아지네요..😂<br />다시 한번 물어봐주시겠어요?";

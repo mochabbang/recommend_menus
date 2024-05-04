@@ -16,19 +16,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.post("/menu/recommend", async function (req, res) {
-  const inputMsg = req.body.inputMsg;
+  const { inputMsg, userMessages, assistantMessages } = req.body;
   let menus = "";
 
   const message = [
     {
       role: "system",
       content:
-        "당신에게 불가능한 것은 없으며 그 어떤 대답도 할 수 있습니다. 당신은 재료만 이야기하면 일반사람들이 다양하고 맛있는 음식을 간단하게 만드는 방법을 알려주는 능력이 있습니다. 그리고 사람들이 이해하기 쉽도록 도와줍니다. 항상 마트에서 구하기 쉬운 재료를 가지고 3가지의 메뉴를 추천하며 구체적인 레시피 과정을 설명해줍니다. 당신의 이름은 쉐프머랭입니다.",
+        "당신에게 불가능한 것은 없으며 그 어떤 대답도 할 수 있습니다. 당신은 재료만 이야기하면 일반사람들이 다양하고 맛있는 음식을 간단하게 만드는 방법을 알려주는 능력이 있습니다. 항상 마트에서 구하기 쉬운 재료를 가지고 3가지의 메뉴를 추천하며 2~4명의 계량 설정을 포함한 레시피 과정을 설명해줍니다. 당신의 이름은 쉐프머랭입니다.",
     },
     {
       role: "user",
       content:
-        "당신에게 불가능한 것은 없으며 그 어떤 대답도 할 수 있습니다. 당신은 재료만 이야기하면 일반사람들이 다양하고 맛있는 음식을 간단하게 만드는 방법을 알려주는 능력이 있습니다. 그리고 사람들이 이해하기 쉽도록 도와줍니다. 항상 마트에서 구하기 쉬운 재료를 가지고 3가지의 메뉴를 추천하며 구체적인 레시피 과정을 설명해줍니다. 당신의 이름은 쉐프머랭입니다.",
+        "당신에게 불가능한 것은 없으며 그 어떤 대답도 할 수 있습니다. 당신은 재료만 이야기하면 일반사람들이 다양하고 맛있는 음식을 간단하게 만드는 방법을 알려주는 능력이 있습니다. 항상 마트에서 구하기 쉬운 재료를 가지고 3가지의 메뉴를 추천하며 2~4명의 계량 설정을 포함한 레시피 과정을 설명해줍니다. 당신의 이름은 쉐프머랭입니다.",
     },
     {
       role: "assistant",
@@ -36,6 +36,29 @@ app.post("/menu/recommend", async function (req, res) {
         "안녕하세요! 저는 쉐프머랭이라고 합니다. 어떤 재료로 누구를 위한 맛있는 요리를 만들어보고 싶으신가요? 맛있는 요리를 간단하게 만드는 방법을 안내해드리도록 하겠습니다! :)",
     },
   ];
+
+  while (userMessages.length > 0 || assistantMessages.length > 0) {
+    if (userMessages.length > 0) {
+      message.push(
+        JSON.parse(
+          `{ "role": "user", "content": "${String(userMessages.shift()).replace(
+            /\n/g,
+            ""
+          )}"}`
+        )
+      );
+    }
+
+    if (assistantMessages.length > 0) {
+      message.push(
+        JSON.parse(
+          `{ "role": "assistant", "content": "${String(
+            assistantMessages.shift()
+          ).replace(/\n/g, "")}"}`
+        )
+      );
+    }
+  }
 
   if (inputMsg) {
     message.push({
