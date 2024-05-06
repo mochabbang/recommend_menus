@@ -2,28 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Markdown to HTML Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>Centered Chat Box</title>
+    <style>
+      .chat-box {
+        width: 300px; /* 채팅창의 너비 */
+        height: 400px; /* 채팅창의 높이 */
+        background-color: #f4f4f4; /* 채팅창의 배경색 */
+        border: 1px solid #ddd; /* 채팅창의 테두리 */
+        padding: 10px; /* 채팅창 내부 여백 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 채팅창에 그림자 효과 추가 */
+        display: flex; /* Flexbox를 활용 */
+        flex-direction: column; /* 요소들을 수직으로 정렬 */
+        overflow: auto; /* 내용이 넘칠 경우 스크롤 생성 */
+      }
+
+      /* 전체 화면을 사용하여 채팅창을 중앙에 위치시킴 */
+      html,
+      body {
+        height: 100%; /* 전체 높이 사용 */
+        margin: 0; /* 기본 마진 제거 */
+        display: flex; /* Flexbox를 활용 */
+        justify-content: center; /* 가로 방향 중앙 정렬 */
+        align-items: center; /* 세로 방향 중앙 정렬 */
+        background-color: #eee; /* 배경색 */
+      }
+    </style>
   </head>
   <body>
-    <div id="markdownContent">
-      ## This is a Markdown Heading This is a paragraph in **Markdown** format.
-      - Item 1 - Item 2
+    <div class="chat-box">
+      <!-- 채팅 내용을 여기에 넣습니다 -->
+      <p>안녕하세요! 어떻게 도와드릴까요?</p>
+      <!-- 추가 메시지들 -->
     </div>
-
-    <div id="htmlContent"></div>
-
-    <script>
-      // Get the Markdown content
-      var markdownContent =
-        document.getElementById("markdownContent").innerText;
-
-      // Convert Markdown to HTML using marked.js
-      var htmlContent = marked.parse(markdownContent);
-
-      // Display the HTML content
-      document.getElementById("htmlContent").innerHTML = htmlContent;
-    </script>
   </body>
 </html>

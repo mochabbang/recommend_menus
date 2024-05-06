@@ -1,4 +1,10 @@
 /* Chatting CSS */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -9,18 +15,25 @@ a {
   text-decoration: none;
 }
 
+.container {
+  dislpay: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .wrap {
-  padding: 40px 0 50px;
-  margin: 10px 40px;
+  padding: 10px 0 50px;
+  margin: 10px 20px;
   background-color: #efefef;
   border: 1px solid #ccc;
   border-radius: 4px;
+  min-width: 360px;
 }
 
 .wrap .chat {
   display: flex;
   align-items: flex-start;
-  padding: 20px;
+  padding: 0px 10px;
 }
 
 .wrap .chat .icon {
@@ -69,13 +82,16 @@ a {
 
 .wrap .ch1 .textbox > p {
   margin-top: 10px;
-  margin-left: 10px;
+}
+
+.wrap .ch1 .textbox > hr {
+  margin: 10px 0px;
 }
 
 .wrap .ch1 .textbox ol,
 ul {
   margin-top: 3px;
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
 .wrap .ch1 .textbox::before {
@@ -101,10 +117,10 @@ ul {
 }
 
 /* 입력, 전송버튼 CSS */
-.container {
+.input_container {
   display: flex;
   justify-content: space-between;
-  padding: 0px 40px;
+  padding: 0px 20px;
 }
 
 .input_textbox {
@@ -140,7 +156,6 @@ ul {
 .ellipsis-loading {
   font-size: 20px;
   text-align: center;
-  margin: 20% auto; /* Center the loading animation */
 }
 
 .ellipsis-loading::after {
@@ -162,4 +177,17 @@ ul {
   75% {
     content: ". . . .";
   }
+}
+
+.shef_info {
+  margin: 15px;
+  display: flex;
+  justify-content: center; /* 가로 방향으로 중앙 정렬 */
+  align-items: center; /* 세로 방향으로 중앙 정렬 */
+  /*height: 100vh;*/ /* 뷰포트 높이를 100%로 설정하여 전체 화면에서 중앙 정렬 */
+}
+img {
+  width: 50%; /* 이미지의 너비를 50%로 설정 */
+  max-width: 600px; /* 최대 너비를 400px로 제한 */
+  border-radius: 4px;
 }

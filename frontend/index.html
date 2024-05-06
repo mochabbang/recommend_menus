@@ -12,29 +12,35 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
-    <div class="wrap">
-      <div class="chat ch1">
-        <div class="icon"><i>머랭</i></div>
-        <div class="textbox">
-          안녕하세요. 쉐프 머랭입니다
-          <br />
-          오늘 소중한 사람과 즐거운 시간을 보낼 수 있는 메뉴를
-          추천해드리겠습니다.
+    <div class="container">
+      <div class="wrap">
+        <div class="shef_info">
+          <img src="./images/shef_merang.png" alter="쉐프머랭" />
+        </div>
+        <div class="chat ch1">
+          <!-- <div class="icon"><i>머랭</i></div> -->
+          <div class="textbox">
+            안녕하세요. 쉐프 머랭입니다
+            <br />
+            오늘 소중한 사람과 즐거운 시간을 보낼 수 있는 메뉴를
+            추천해드리겠습니다.
+          </div>
         </div>
       </div>
+      <div class="input_container">
+        <input
+          id="inputChat"
+          type="text"
+          class="input_textbox"
+          onkeyup="chatting.onKeyUp(event, this)"
+          placeholder="당신의 소중한 사람에게 어떤 요리를 해주고 싶으신가요? 재료를 입력해주세요."
+        />
+        <button id="btnChat" class="button" onclick="chatting.sendMessage();">
+          <i class="fa fa-regular fa-paper-plane"></i>
+        </button>
+      </div>
     </div>
-    <div class="container">
-      <input
-        id="inputChat"
-        type="text"
-        class="input_textbox"
-        onkeyup="chatting.onKeyUp(event, this)"
-        placeholder="당신의 소중한 사람에게 어떤 요리를 해주고 싶으신가요? 재료를 입력해주세요."
-      />
-      <button id="btnChat" class="button" onclick="chatting.sendMessage();">
-        <i class="fa fa-regular fa-paper-plane"></i>
-      </button>
-    </div>
+
     <script>
       class Chatting {
         constructor() {
@@ -103,11 +109,11 @@
             const dvIcon = document.createElement("div");
             dvIcon.className = "icon";
 
-            const icon = document.createElement("i");
-            icon.textContent = "머랭";
+            //const icon = document.createElement("i");
+            //icon.textContent = "머랭";
 
-            dvIcon.appendChild(icon);
-            dvMsg.appendChild(dvIcon);
+            //dvIcon.appendChild(icon);
+            //dvMsg.appendChild(dvIcon);
 
             const dvTextMsg = document.createElement("div");
             dvTextMsg.className = "textbox ellipsis-loading";
@@ -131,6 +137,7 @@
           const dvMsg = document.createElement("div");
           dvMsg.className = `chat ${className}`;
 
+          /*
           if (userType !== "user") {
             const dvIcon = document.createElement("div");
             dvIcon.className = "icon";
@@ -139,6 +146,7 @@
             dvIcon.appendChild(icon);
             dvMsg.appendChild(dvIcon);
           }
+          */
 
           const dvTextMsg = document.createElement("div");
           dvTextMsg.className = "textbox";
