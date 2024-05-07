@@ -2,7 +2,7 @@
 body {
   display: flex;
   justify-content: center;
-  align-items: center;
+  min-height: 100%;
 }
 
 * {
@@ -15,19 +15,37 @@ a {
   text-decoration: none;
 }
 
+.background-image {
+  /* Set up the background image */
+  background-image: url("./images/background-img.png"); /* Replace 'path_to_your_image.jpg' with your image path */
+  height: 100%; /* Full height */
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the image to cover the entire container */
+
+  /* Transparency settings */
+  opacity: 0.25; /* Adjust the opacity as needed (1 is fully opaque, 0 is fully transparent) */
+  display: flex;
+  align-items: center; /* Aligns content vertically center */
+  justify-content: center; /* Aligns content horizontally center */
+}
+
 .container {
-  dislpay: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 30px;
 }
 
 .wrap {
   padding: 10px 0 50px;
   margin: 10px 20px;
   background-color: #efefef;
-  border: 1px solid #ccc;
+  border: 2px solid #bbb;
   border-radius: 4px;
   min-width: 360px;
+  overflow-y: auto;
+  max-height: 700px;
 }
 
 .wrap .chat {
@@ -125,8 +143,8 @@ ul {
 
 .input_textbox {
   flex: 9;
-  background-color: #f4f4f4;
-  border: 1px solid #ccc;
+  background-color: #efefef;
+  border: 2px solid #bbb;
   border-radius: 4px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -185,9 +203,12 @@ ul {
   justify-content: center; /* 가로 방향으로 중앙 정렬 */
   align-items: center; /* 세로 방향으로 중앙 정렬 */
   /*height: 100vh;*/ /* 뷰포트 높이를 100%로 설정하여 전체 화면에서 중앙 정렬 */
+  flex-direction: column;
+  opacity: 0.9;
 }
 img {
   width: 50%; /* 이미지의 너비를 50%로 설정 */
   max-width: 600px; /* 최대 너비를 400px로 제한 */
   border-radius: 4px;
+  margin: 12px 0px 0px;
 }
